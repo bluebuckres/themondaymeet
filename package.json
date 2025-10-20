@@ -1,0 +1,44 @@
+{
+  "name": "monday-meet-love-letter",
+  "version": "1.0.0",
+  "description": "A beautiful, responsive love letter website built with modern web technologies",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'Static site - no build process needed'",
+    "test": "echo 'Tests not configured'",
+    "deploy": "echo 'Install Vercel CLI: npm i -g vercel, then run: vercel --prod'",
+    "preview": "echo 'Install Vercel CLI: npm i -g vercel, then run: vercel'",
+    "lint:css": "echo 'CSS linting not configured'",
+    "format": "echo 'Formatting not configured'"
+  },
+  "keywords": [
+    "love-letter",
+    "romance",
+    "static-website",
+    "handwritten-font",
+    "responsive-design",
+    "vercel"
+  ],
+  "author": "Supriyo Paul <supriyo.bbrs@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/username/monday-meet-love-letter",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/monday-meet-love-letter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/monday-meet-love-letter/issues"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

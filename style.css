@@ -1,0 +1,16 @@
+/* Basic CSS file - main styles are in love.html */
+/* This file is for any additional styles if needed */
+
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body fallback */
+body {
+    font-family: 'Handlee', cursive;
+    background: #f8f6f0;
+    color: #1a1a1a;
+}

@@ -1,0 +1,221 @@
+/* ========================================
+   Responsive Design - Mobile First Approach
+======================================== */
+
+/* Mobile Styles (Default - 320px+) */
+.scroll-content {
+    padding: 0 var(--spacing-md);
+}
+
+.hero-section {
+    height: 100vh;
+    padding: var(--spacing-lg);
+}
+
+.letter-card {
+    margin: var(--spacing-lg) var(--spacing-xs) var(--spacing-2xl);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+}
+
+.letter-header {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+}
+
+.letter-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+    padding-left: var(--spacing-sm);
+}
+
+.letter-section p {
+    font-size: 1.0625rem;
+    text-align: left;
+    line-height: 1.7;
+}
+
+.greeting {
+    font-size: 1.1875rem;
+}
+
+.contact-links {
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.contact-link {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9375rem;
+}
+
+/* Tablet Styles (768px+) */
+@media screen and (min-width: 48rem) {
+    .scroll-content {
+        padding: 0 var(--spacing-2xl);
+    }
+
+    .hero-section {
+        padding: var(--spacing-xl);
+    }
+
+    .letter-card {
+        margin: var(--spacing-2xl) auto 100px;
+        padding: 2.5rem 2.8125rem;
+        border-radius: var(--radius-xl);
+    }
+
+    .letter-header {
+        margin-bottom: 2.5rem;
+        padding-bottom: 1.875rem;
+    }
+
+    .letter-section h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+        padding-left: 0.75rem;
+    }
+
+    .letter-section p {
+        font-size: 1.125rem;
+        text-align: justify;
+        line-height: 1.7;
+    }
+
+    .greeting {
+        font-size: 1.1875rem;
+    }
+
+    .contact-links {
+        flex-direction: row;
+        gap: var(--spacing-lg);
+    }
+
+    .contact-link {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Desktop Styles (1024px+) */
+@media screen and (min-width: 64rem) {
+    .scroll-content {
+        padding: 0 var(--spacing-2xl);
+    }
+
+    .letter-card {
+        padding: 3.75rem 4.375rem;
+    }
+
+    .letter-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.9375rem;
+        padding-left: 0.9375rem;
+    }
+
+    .letter-section p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .greeting {
+        font-size: 1.125rem;
+    }
+}
+
+/* Large Desktop (1200px+) */
+@media screen and (min-width: 75rem) {
+    .scroll-content {
+        padding: 0 4rem;
+    }
+
+    .letter-card {
+        max-width: 900px;
+    }
+}
+
+/* Ultra Wide (1400px+) */
+@media screen and (min-width: 87.5rem) {
+    .scroll-content {
+        padding: 0 6rem;
+    }
+}
+
+/* High DPI Displays */
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+       screen and (min-resolution: 192dpi) {
+    .letter-card {
+        box-shadow: 
+            0 50px 100px rgba(0,0,0,0.2),
+            inset 0 1px 0 rgba(255,255,255,0.3),
+            inset 0 -1px 0 rgba(0,0,0,0.1);
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+
+    .hero-section,
+    .contact-links,
+    .paper-grain {
+        display: none;
+    }
+
+    .letter-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        margin: 0;
+        padding: 1rem;
+    }
+
+    .letter-section h2 {
+        color: black;
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .highlight {
+        background: transparent;
+        color: black;
+        text-decoration: underline;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .paper-grain {
+        animation: none;
+    }
+
+    .hero-title {
+        animation: none;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --ink-black: #000000;
+        --paper-white: #ffffff;
+        --cinnabar-red: #cc0000;
+    }
+
+    .letter-card {
+        border: 2px solid var(--ink-black);
+    }
+
+    .contact-link {
+        border: 2px solid white;
+    }
+}
