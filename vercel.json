@@ -2,18 +2,6 @@
   "version": 2,
   "name": "monday-meet-love-letter",
   "public": true,
-  "builds": [
-    {
-      "src": "**/*",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
   "headers": [
     {
       "source": "/assets/(.*)",
