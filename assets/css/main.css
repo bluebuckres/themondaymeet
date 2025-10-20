@@ -57,17 +57,29 @@ body {
     color: var(--ink-black);
     overflow-x: hidden;
     line-height: 1.6;
-    background-image: 
-        url('../images/rice_paper_texture.png'),
-        radial-gradient(circle at 20% 80%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(74, 103, 65, 0.1) 0%, transparent 50%),
-        linear-gradient(135deg, var(--paper-white) 0%, #f5f3ed 50%, var(--paper-white) 100%);
-    background-size: cover, 100% 100%, 100% 100%, 100% 100%;
-    background-attachment: fixed;
     position: relative;
+    
+    /* Mobile-optimized background */
+    background: linear-gradient(
+        135deg, 
+        var(--paper-white) 0%, 
+        #f9f7f1 25%,
+        #f5f3ed 50%,
+        #f9f7f1 75%,
+        var(--paper-white) 100%
+    );
+    
+    /* Add subtle texture only on larger screens */
+    @media (min-width: 768px) {
+        background-image: 
+            radial-gradient(circle at 20% 80%, rgba(139, 38, 53, 0.08) 0%, transparent 40%),
+            radial-gradient(circle at 80% 20%, rgba(74, 103, 65, 0.08) 0%, transparent 40%),
+            linear-gradient(135deg, var(--paper-white) 0%, #f5f3ed 50%, var(--paper-white) 100%);
+        background-size: 100% 100%, 100% 100%, 100% 100%;
+    }
 }
 
-/* Paper Texture Effects */
+/* Simplified Paper Effects - Performance Optimized */
 body::before {
     content: '';
     position: fixed;
@@ -75,36 +87,20 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 98px,
-            rgba(139, 38, 53, 0.03) 99px,
-            rgba(139, 38, 53, 0.03) 100px
-        ),
-        repeating-linear-gradient(
-            180deg,
-            transparent,
-            transparent 98px,
-            rgba(74, 103, 65, 0.02) 99px,
-            rgba(74, 103, 65, 0.02) 100px
-        );
+    background: linear-gradient(
+        45deg,
+        rgba(139, 38, 53, 0.02) 0%,
+        transparent 25%,
+        rgba(74, 103, 65, 0.01) 50%,
+        transparent 75%,
+        rgba(139, 38, 53, 0.02) 100%
+    );
     pointer-events: none;
     z-index: 1;
 }
 
 .paper-grain {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZmlsdGVyIGlkPSJub2lzZSI+CiAgICA8ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgc2VlZD0iMiIvPgogIDwvZmlsdGVyPgogIDxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMDMiLz4KICA8L3N2Zz4K');
-    pointer-events: none;
-    opacity: 0.4;
-    z-index: 2;
-    animation: paperFloat 20s ease-in-out infinite;
+    display: none; /* Disabled for performance */
 }
 
 /* Layout Components */
@@ -157,27 +153,30 @@ body::before {
     max-width: 600px;
 }
 
-/* Letter Card Component */
+/* Letter Card Component - Enhanced Design */
 .letter-card {
     position: relative;
     max-width: 800px;
     margin: var(--spacing-2xl) auto 100px;
     padding: clamp(var(--spacing-xl), 5vw, 4.375rem) clamp(var(--spacing-lg), 4vw, 4.375rem);
-    background: rgba(248, 246, 240, 0.95);
+    background: linear-gradient(145deg, rgba(248, 246, 240, 0.98), rgba(255, 253, 249, 0.95));
     border-radius: var(--radius-xl);
-    backdrop-filter: blur(15px);
-    box-shadow: var(--shadow-xl);
-    transition: all 0.5s ease;
-    border: 2px solid rgba(139, 38, 53, 0.1);
-    width: calc(100% - 40px);
+    box-shadow: 
+        0 20px 40px rgba(139, 38, 53, 0.1),
+        0 10px 20px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(139, 38, 53, 0.15);
+    width: calc(100% - 20px);
     box-sizing: border-box;
 }
 
+
 .letter-card:hover {
     box-shadow: 
-        0 35px 70px rgba(0,0,0,0.2),
-        inset 0 1px 0 rgba(255,255,255,0.4);
-    transform: translateY(-5px);
+        0 25px 50px rgba(139, 38, 53, 0.15),
+        0 15px 30px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: translateY(-3px);
 }
 
 /* Letter Content */
@@ -216,7 +215,17 @@ body::before {
     color: var(--ink-black);
     margin-bottom: 0.75rem;
     text-align: justify;
-    line-height: 1.6;
+    line-height: 1.7;
+    position: relative;
+    padding: 0.5rem 0;
+    
+    /* Add subtle hover effect */
+    transition: all 0.3s ease;
+}
+
+.letter-section p:hover {
+    color: var(--charcoal-gray);
+    transform: translateX(2px);
 }
 
 .greeting {
@@ -272,17 +281,50 @@ body::before {
     box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
 }
 
+/* Beautiful Floating Hearts - Mobile Optimized */
+.letter-card::before {
+    content: '💕';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    animation: heartBeat 2s ease-in-out infinite;
+}
+
+/* Add decorative elements */
+.letter-header::after {
+    content: '✨';
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 1rem;
+    opacity: 0.7;
+    animation: sparkle 3s ease-in-out infinite;
+}
+
 /* Animations */
 @keyframes titleGlow {
     from { text-shadow: 0 0 20px rgba(139, 38, 53, 0.3), 0 0 30px rgba(139, 38, 53, 0.2); }
     to { text-shadow: 0 0 30px rgba(139, 38, 53, 0.5), 0 0 40px rgba(139, 38, 53, 0.3); }
 }
 
-@keyframes paperFloat {
-    0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
-    25% { transform: translateX(-2px) translateY(-1px) rotate(0.1deg); }
-    50% { transform: translateX(1px) translateY(2px) rotate(-0.1deg); }
-    75% { transform: translateX(-1px) translateY(-2px) rotate(0.05deg); }
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(-5deg); }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.3; transform: rotate(0deg); }
+    50% { opacity: 0.8; transform: rotate(180deg); }
+}
+
+/* Remove heavy animations on mobile */
+@media (max-width: 768px) {
+    .hero-title {
+        animation: none;
+        text-shadow: 0 0 15px rgba(139, 38, 53, 0.3);
+    }
 }
 
 /* Utility Classes */
