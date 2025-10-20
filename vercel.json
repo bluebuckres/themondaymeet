@@ -2,6 +2,7 @@
   "version": 2,
   "name": "monday-meet-love-letter",
   "public": true,
+  "outputDirectory": ".",
   "headers": [
     {
       "source": "/assets/(.*)",
