@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Connection Test</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+</head>
+<body>
+    <h1>Firebase Connection Test</h1>
+    <div id="status">Testing...</div>
+    <button onclick="testWrite()">Test Write</button>
+    <button onclick="testRead()">Test Read</button>
+    <div id="messages"></div>
+
+    <script>
+        const FIREBASE_CONFIG = {
+            apiKey: "AIzaSyAxL7T8IAR3WFjsmoCyn_lOVfjkxJX2Yto",
+            authDomain: "lovelatter-chat.firebaseapp.com",
+            databaseURL: "https://lovelatter-chat-default-rtdb.asia-southeast1.firebasedatabase.app/",
+            projectId: "lovelatter-chat",
+            storageBucket: "lovelatter-chat.firebasestorage.app",
+            messagingSenderId: "633229169343",
+            appId: "1:633229169343:web:4a8daec614adbaba0cac0a"
+        };
+
+        let database;
+        
+        try {
+            firebase.initializeApp(FIREBASE_CONFIG);
+            database = firebase.database();
+            document.getElementById('status').innerHTML = '✅ Firebase Connected!';
+            console.log('Firebase initialized successfully');
+        } catch (error) {
+            document.getElementById('status').innerHTML = '❌ Firebase Failed: ' + error.message;
+            console.error('Firebase init error:', error);
+        }
+
+        function testWrite() {
+            if (!database) {
+                alert('Database not connected!');
+                return;
+            }
+            
+            const testData = {
+                text: 'Test message: ' + new Date().toISOString(),
+                sender: 'test_user',
+                timestamp: Date.now()
+            };
+            
+            database.ref('chats/test123/messages').push(testData)
+                .then(() => {
+                    console.log('✅ Write successful');
+                    alert('✅ Write successful!');
+                })
+                .catch((error) => {
+                    console.error('❌ Write failed:', error);
+                    alert('❌ Write failed: ' + error.message);
+                });
+        }
+
+        function testRead() {
+            if (!database) {
+                alert('Database not connected!');
+                return;
+            }
+            
+            database.ref('chats/test123/messages').once('value')
+                .then((snapshot) => {
+                    const data = snapshot.val();
+                    console.log('✅ Read successful:', data);
+                    document.getElementById('messages').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                })
+                .catch((error) => {
+                    console.error('❌ Read failed:', error);
+                    alert('❌ Read failed: ' + error.message);
+                });
+        }
+
+        // Listen for real-time updates
+        if (database) {
+            database.ref('chats/test123/messages').on('child_added', (snapshot) => {
+                console.log('🔄 New message received:', snapshot.val());
+            });
+        }
+    </script>
+</body>
+</html>

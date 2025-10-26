@@ -1,0 +1,36 @@
+{
+  "rules": {
+    "analytics": {
+      "events": {
+        ".read": "auth != null",
+        ".write": true,
+        ".indexOn": ["timestamp", "page", "event"],
+        "$eventId": {
+          ".validate": "newData.hasChildren(['page', 'event', 'timestamp', 'sessionId'])"
+        }
+      },
+      "pages": {
+        ".read": "auth != null", 
+        ".write": true,
+        "$pageId": {
+          ".validate": true
+        }
+      }
+    },
+    "chats": {
+      "$chatId": {
+        ".read": true,
+        ".write": true,
+        "messages": {
+          ".indexOn": ["timestamp"],
+          "$messageId": {
+            ".validate": "newData.hasChildren(['text', 'sender', 'timestamp'])"
+          }
+        },
+        "lastActivity": {
+          ".validate": "newData.isNumber()"
+        }
+      }
+    }
+  }
+}
