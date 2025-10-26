@@ -161,6 +161,16 @@ class DigitalBestiary {
     }
     
     setupHeroAnimations() {
+        // Initialize on DOM content loaded
+        this.init();
+        
+        // On mobile, periodically check and remove cursors
+        if (window.innerWidth <= 768) {
+            setInterval(() => {
+                this.removeCursorsOnMobile();
+            }, 1000);
+        }
+        
         // Animate hero section on load
         setTimeout(() => {
             if (this.heroSection) {
@@ -172,16 +182,33 @@ class DigitalBestiary {
             }
         }, 500);
         
-        // Splitting.js for character animation
-        if (typeof Splitting !== 'undefined') {
-            Splitting();
+        // Splitting.js for character animation - only on desktop
+        const isMobile = window.innerWidth <= 768;
+        
+        if (typeof Splitting !== 'undefined' && !isMobile) {
+            // Only apply splitting on desktop to prevent mobile corruption
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle && !heroTitle.classList.contains('mobile-safe-title')) {
+                Splitting();
+                
+                // Animate each character
+                const chars = document.querySelectorAll('.hero-title .char');
+                chars.forEach((char, index) => {
+                    char.style.animationDelay = `${index * 0.1}s`;
+                    char.style.animation = 'charFadeIn 0.8s ease-out forwards';
+                });
+            }
+        } else if (isMobile) {
+            // Ensure text is properly displayed on mobile
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                heroTitle.style.opacity = '1';
+                heroTitle.style.transform = 'none';
+                heroTitle.innerHTML = 'The Monday Meet'; // Reset any corrupted text
+            }
             
-            // Animate each character
-            const chars = document.querySelectorAll('.hero-title .char');
-            chars.forEach((char, index) => {
-                char.style.animationDelay = `${index * 0.1}s`;
-                char.style.animation = 'charFadeIn 0.8s ease-out forwards';
-            });
+            // Remove any Typed.js cursors on mobile
+            this.removeCursorsOnMobile();
         }
     }
     
@@ -296,6 +323,35 @@ class DigitalBestiary {
     
     setupTypedText() {
         // Typed text functionality disabled
+    }
+    
+    removeCursorsOnMobile() {
+        // Remove all Typed.js cursor elements on mobile
+        const cursors = document.querySelectorAll('.typed-cursor, .typed-cursor-text, .cursor, .blink, [class*="cursor"], [class*="blink"]');
+        cursors.forEach(cursor => {
+            cursor.remove();
+        });
+        
+        // Also check for any elements that might contain cursor text
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach(el => {
+            if (el.textContent && el.textContent.includes('|')) {
+                // If it's just a cursor character, remove it
+                if (el.textContent.trim() === '|') {
+                    el.remove();
+                } else if (el.textContent.endsWith('|')) {
+                    // Remove trailing cursor from text
+                    el.textContent = el.textContent.replace(/\|$/, '');
+                }
+            }
+        });
+        
+        // Force hide typed-text container
+        const typedText = document.getElementById('typedText');
+        if (typedText) {
+            typedText.style.display = 'none';
+            typedText.innerHTML = '';
+        }
     }
 }
 

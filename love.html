@@ -15,12 +15,32 @@
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
-    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css">
+    <!-- Typed.js disabled for mobile - causes cursor issues -->
+    <script>
+        // Only load Typed.js on desktop
+        if (window.innerWidth > 768) {
+            const typedScript = document.createElement('script');
+            typedScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js';
+            document.head.appendChild(typedScript);
+        }
+    </script>
+    <!-- Splitting.js disabled for mobile - causes text corruption -->
+    <script>
+        // Only load Splitting.js on desktop
+        if (window.innerWidth > 768) {
+            const splittingScript = document.createElement('script');
+            splittingScript.src = 'https://unpkg.com/splitting@1.0.6/dist/splitting.js';
+            document.head.appendChild(splittingScript);
+            
+            const splittingCSS = document.createElement('link');
+            splittingCSS.rel = 'stylesheet';
+            splittingCSS.href = 'https://unpkg.com/splitting@1.0.6/dist/splitting.css';
+            document.head.appendChild(splittingCSS);
+        }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee:wght@400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Organized CSS Files -->
     <link rel="stylesheet" href="assets/css/main.css">
@@ -230,30 +250,12 @@
             }
             
             .hero-title {
-                font-size: 2.5rem !important; /* 40px - reduced from 48px */
+                font-size: 3rem !important; /* 48px */
                 line-height: 1.2;
                 margin-bottom: 1rem;
                 letter-spacing: -1px;
                 animation: none; /* Disable animation on mobile for better performance */
                 text-shadow: 0 0 15px rgba(139, 38, 53, 0.3);
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                max-width: 100%;
-                padding: 0 1rem;
-            }
-            
-            /* Extra small screens (iPhone SE, etc.) */
-            @media (max-width: 375px) {
-                .hero-title {
-                    font-size: 2rem !important; /* 32px for very small screens */
-                }
-            }
-            
-            /* Tiny screens (very old phones) */
-            @media (max-width: 320px) {
-                .hero-title {
-                    font-size: 1.75rem !important; /* 28px for tiny screens */
-                }
             }
             
             .hero-subtitle {
@@ -261,16 +263,6 @@
                 line-height: 1.6;
                 margin-bottom: 2rem;
                 padding: 0 1rem;
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                max-width: 100%;
-            }
-            
-            /* Smaller subtitle for tiny screens */
-            @media (max-width: 375px) {
-                .hero-subtitle {
-                    font-size: 1rem !important; /* 16px for smaller screens */
-                }
             }
             
             .scroll-content {
@@ -288,13 +280,81 @@
             .hero-title {
                 opacity: 1 !important;
                 transform: none !important;
+                font-family: 'Handlee', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+                font-display: swap !important;
+                text-rendering: optimizeLegibility !important;
+                -webkit-font-smoothing: antialiased !important;
+                -moz-osx-font-smoothing: grayscale !important;
+            }
+
+            /* Mobile safe title class */
+            .mobile-safe-title {
+                font-family: 'Handlee', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+                font-display: swap !important;
+                text-rendering: optimizeLegibility !important;
+                -webkit-font-smoothing: antialiased !important;
+                -moz-osx-font-smoothing: grayscale !important;
+                word-break: keep-all !important;
+                white-space: nowrap !important;
+                letter-spacing: -1px !important;
+                font-weight: 700 !important;
+                content: "The Monday Meet" !important;
+            }
+
+            /* Prevent Splitting.js from corrupting mobile text */
+            .mobile-safe-title .char,
+            .mobile-safe-title .word,
+            .mobile-safe-title span {
+                display: inline !important;
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+            }
+
+            /* Force clean text display on small screens */
+            .mobile-safe-title::before {
+                content: "";
+                display: inline;
+            }
+
+            .mobile-safe-title::after {
+                content: "";
+                display: inline;
             }
             
             /* Fix typed text on mobile */
             .typed-text {
                 font-size: 1rem;
                 min-height: 2rem;
-                display: none; /* Hide typed text on mobile for better performance */
+                display: none !important; /* Hide typed text on mobile for better performance */
+            }
+
+            /* Hide Typed.js cursor completely on mobile */
+            .typed-cursor,
+            .typed-cursor-text,
+            .typed-cursor::after,
+            .typed-cursor--blink {
+                display: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+            }
+
+            /* Hide any blinking cursor elements */
+            *[class*="cursor"],
+            *[class*="blink"],
+            .cursor,
+            .blink {
+                display: none !important;
+            }
+
+            /* Override any CSS animations that show cursors */
+            @keyframes blink {
+                0%, 100% { opacity: 0 !important; }
+                50% { opacity: 0 !important; }
+            }
+
+            .typed-cursor {
+                animation: none !important;
             }
             
             /* Improve hero section centering on mobile */
@@ -320,21 +380,11 @@
             width: 100%;
             position: relative;
             padding: 0 50px;
-            max-width: 100vw;
-            overflow-x: hidden;
-        }
-        
-        /* Adjust padding for tablets */
-        @media (max-width: 1024px) {
-            .scroll-content {
-                padding: 0 30px;
-            }
         }
         
         .hero-section {
             position: relative;
             width: 100%;
-            max-width: 100vw;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -344,8 +394,6 @@
             opacity: 1;
             margin-bottom: 100px;
             z-index: 10;
-            overflow-x: hidden;
-            overflow-y: visible;
         }
         
         .hero-title {
@@ -356,23 +404,6 @@
             letter-spacing: -2px;
             line-height: 1.1;
             animation: titleGlow 3s ease-in-out infinite alternate;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            max-width: 100%;
-            padding: 0 20px;
-        }
-        
-        /* Responsive title for tablets and small desktops */
-        @media (max-width: 1024px) {
-            .hero-title {
-                font-size: 80px;
-            }
-        }
-        
-        @media (max-width: 768px) and (min-width: 769px) {
-            .hero-title {
-                font-size: 60px;
-            }
         }
         
         @keyframes titleGlow {
@@ -893,9 +924,9 @@
         <div class="scroll-content no-transform-on-scroll" id="scrollContent">
             <!-- Hero Section -->
             <div class="hero-section" id="heroSection">
-                <h1 class="hero-title" data-splitting>The Monday Meet</h1>
+                <h1 class="hero-title mobile-safe-title">The Monday Meet</h1>
                 <p class="hero-subtitle">Sometimes, the most beautiful stories begin in the most ordinary places.</p>
-                <div class="typed-text" id="typedText"></div>
+                <div class="typed-text" id="typedText" style="display: none !important;"></div>
             </div>
             
             <!-- Single Love Letter Card -->
@@ -1045,6 +1076,65 @@
         } catch (error) {
             // Analytics initialization failed - page will continue to work
             console.log('Analytics initialization failed (this is fine)');
+        }
+    </script>
+
+    <!-- Mobile Cleanup Script - Remove all typing effects and cursors -->
+    <script>
+        if (window.innerWidth <= 768) {
+            // Wait for page to fully load
+            window.addEventListener('load', function() {
+                // Function to aggressively remove cursors and typing effects
+                function cleanupMobile() {
+                    // Remove all cursor elements
+                    const cursors = document.querySelectorAll('.typed-cursor, .typed-cursor-text, .cursor, .blink, [class*="cursor"], [class*="blink"]');
+                    cursors.forEach(el => el.remove());
+                    
+                    // Hide typed-text container
+                    const typedText = document.getElementById('typedText');
+                    if (typedText) {
+                        typedText.style.display = 'none';
+                        typedText.innerHTML = '';
+                    }
+                    
+                    // Clean up hero title
+                    const heroTitle = document.querySelector('.hero-title');
+                    if (heroTitle) {
+                        // Remove any child elements that might be cursors
+                        const children = heroTitle.querySelectorAll('*');
+                        children.forEach(child => {
+                            if (child.textContent.trim() === '|' || child.classList.contains('cursor')) {
+                                child.remove();
+                            }
+                        });
+                        
+                        // Clean text content
+                        if (heroTitle.textContent.includes('|')) {
+                            heroTitle.textContent = heroTitle.textContent.replace(/\|/g, '');
+                        }
+                        
+                        // Ensure clean text
+                        if (heroTitle.textContent.trim() !== 'The Monday Meet') {
+                            heroTitle.textContent = 'The Monday Meet';
+                        }
+                    }
+                    
+                    // Remove any standalone pipe characters
+                    document.querySelectorAll('*').forEach(el => {
+                        if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
+                            if (el.textContent.trim() === '|') {
+                                el.remove();
+                            }
+                        }
+                    });
+                }
+                
+                // Run cleanup immediately
+                cleanupMobile();
+                
+                // Run cleanup periodically to catch any dynamic additions
+                setInterval(cleanupMobile, 500);
+            });
         }
     </script>
 </body>

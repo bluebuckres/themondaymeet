@@ -47,6 +47,32 @@
                 overscroll-behavior: none;
                 touch-action: pan-y;
             }
+
+            /* Hide debug overlays and cursor on mobile */
+            .debug-overlay,
+            .debug-panel,
+            .debug-checklist,
+            .dev-overlay {
+                display: none !important;
+                visibility: hidden !important;
+            }
+
+            /* Remove text cursor on mobile inputs when not focused */
+            input[type="text"]:not(:focus),
+            textarea:not(:focus) {
+                caret-color: transparent;
+            }
+
+            /* Hide blinking cursor completely on mobile */
+            input[type="text"],
+            textarea {
+                caret-color: #8b5cf6;
+            }
+
+            input[type="text"]:focus,
+            textarea:focus {
+                caret-color: #8b5cf6;
+            }
             
             .safe-area-bottom {
                 padding-bottom: env(safe-area-inset-bottom, 1rem);
@@ -147,6 +173,120 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 min-width: 0;
+            }
+
+            /* Hide any debug elements that might appear */
+            *[id*="debug"],
+            *[class*="debug"],
+            *[class*="dev-"],
+            *[class*="test-"],
+            .checklist,
+            .status-list,
+            .error-list {
+                display: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                position: absolute !important;
+                left: -9999px !important;
+            }
+
+            /* Ensure title is always visible on mobile */
+            h1, .title, [class*="title"] {
+                visibility: visible !important;
+                opacity: 1 !important;
+                display: block !important;
+            }
+
+            /* Remove text selection cursor artifacts */
+            * {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            /* Allow text selection only in input fields and messages */
+            input, textarea, .message-text, [class*="message"] p {
+                -webkit-user-select: text;
+                -moz-user-select: text;
+                -ms-user-select: text;
+                user-select: text;
+            }
+
+            /* Enhanced mobile header visibility */
+            h1, .font-semibold {
+                color: #1a1a1a !important;
+                font-weight: 700 !important;
+                opacity: 1 !important;
+            }
+
+            /* Better contrast for mobile text */
+            .text-gray-800 {
+                color: #1a1a1a !important;
+            }
+
+            .text-gray-600 {
+                color: #4a4a4a !important;
+            }
+
+            .text-gray-500 {
+                color: #6b7280 !important;
+            }
+
+            /* Ensure header background is solid on mobile */
+            .bg-white\/80 {
+                background-color: rgba(255, 255, 255, 0.95) !important;
+            }
+
+            /* Better button visibility on mobile */
+            button {
+                font-weight: 600 !important;
+            }
+
+            /* Ensure all text is readable */
+            * {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            /* Make empty state text more visible */
+            .text-center p {
+                color: #1a1a1a !important;
+                font-weight: 600 !important;
+            }
+
+            .text-center p.text-gray-500 {
+                color: #6b7280 !important;
+                font-weight: 500 !important;
+            }
+
+            /* Ensure message text is visible */
+            .text-gray-800 {
+                color: #111827 !important;
+            }
+
+            /* Better visibility for all text elements */
+            p, span, div {
+                color: inherit;
+                opacity: 1 !important;
+            }
+
+            /* Force visible text in messages */
+            .break-words {
+                color: inherit !important;
+                opacity: 1 !important;
+            }
+
+            /* Improve input visibility */
+            input::placeholder {
+                color: #9ca3af !important;
+                opacity: 1 !important;
+            }
+
+            input {
+                color: #1a1a1a !important;
             }
         }
         
@@ -325,7 +465,13 @@
 
             // Auto-scroll to bottom
             const scrollToBottom = () => {
-                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+                try {
+                    if (messagesEndRef.current && typeof messagesEndRef.current.scrollIntoView === 'function') {
+                        messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+                    }
+                } catch (err) {
+                    console.debug('Scroll error (safe to ignore):', err);
+                }
             };
 
             useEffect(() => {
@@ -336,16 +482,26 @@
             useEffect(() => {
                 const init = async () => {
                     try {
+                        // Wait for DOM to be ready before initializing
+                        if (document.readyState === 'loading') {
+                            await new Promise(resolve => {
+                                document.addEventListener('DOMContentLoaded', resolve, { once: true });
+                            });
+                        }
+
                         await initFirebase();
                         
                         // Auto-start chat after 2 seconds of welcome screen
                         setTimeout(() => {
-                            setIsInChat(true);
-                            setShowWelcome(false);
+                            if (document.hasFocus !== false) { // Check if page is still active
+                                setIsInChat(true);
+                                setShowWelcome(false);
+                            }
                         }, 2000);
                         
                         setIsLoading(false);
                     } catch (err) {
+                        console.error('Firebase initialization error:', err);
                         setError('Failed to initialize Firebase. Please check your configuration.');
                         setIsLoading(false);
                     }
@@ -415,11 +571,17 @@
             }, [messages, isInChat, userId]);
 
             const updateTypingStatus = (typing) => {
-                if (!database || !chatId) return;
-                const now = Date.now();
-                if (now - lastTypingUpdateRef.current < 1000) return;
-                lastTypingUpdateRef.current = now;
-                database.ref(`chats/${chatId}/typing/${userId}`).set(typing);
+                try {
+                    if (!database || !chatId || !userId) return;
+                    const now = Date.now();
+                    if (now - lastTypingUpdateRef.current < 1000) return;
+                    lastTypingUpdateRef.current = now;
+                    database.ref(`chats/${chatId}/typing/${userId}`).set(typing).catch(err => {
+                        console.debug('Typing status update error (safe to ignore):', err);
+                    });
+                } catch (err) {
+                    console.debug('Typing status error (safe to ignore):', err);
+                }
             };
 
             const handleMessageChange = (e) => {
@@ -944,28 +1106,45 @@
             appId: "1:633229169343:web:4a8daec614adbaba0cac0a"
         });
 
-        // Track chat-specific events
+        // Track chat-specific events with error handling
         document.addEventListener('DOMContentLoaded', () => {
-            // Track when user sends first message
-            let firstMessage = true;
-            const originalSendMessage = sendMessage;
-            sendMessage = function() {
-                if (firstMessage) {
-                    chatTracker.track('first_message_sent');
-                    firstMessage = false;
+            try {
+                // Track when user sends first message
+                let firstMessage = true;
+                
+                // Safely override sendMessage if it exists
+                if (typeof sendMessage !== 'undefined') {
+                    const originalSendMessage = sendMessage;
+                    sendMessage = function() {
+                        try {
+                            if (firstMessage) {
+                                chatTracker.track('first_message_sent');
+                                firstMessage = false;
+                            }
+                            chatTracker.track('message_sent');
+                            return originalSendMessage.apply(this, arguments);
+                        } catch (err) {
+                            console.debug('Tracking error (safe to ignore):', err);
+                            return originalSendMessage.apply(this, arguments);
+                        }
+                    };
                 }
-                chatTracker.track('message_sent');
-                return originalSendMessage.apply(this, arguments);
-            };
 
-            // Track emoji reactions
-            document.addEventListener('click', (e) => {
-                if (e.target.classList.contains('reaction-btn')) {
-                    chatTracker.track('emoji_reaction', { 
-                        emoji: e.target.textContent.trim() 
-                    });
-                }
-            });
+                // Track emoji reactions with error handling
+                document.addEventListener('click', (e) => {
+                    try {
+                        if (e.target && e.target.classList && e.target.classList.contains('reaction-btn')) {
+                            chatTracker.track('emoji_reaction', { 
+                                emoji: e.target.textContent ? e.target.textContent.trim() : ''
+                            });
+                        }
+                    } catch (err) {
+                        console.debug('Emoji tracking error (safe to ignore):', err);
+                    }
+                });
+            } catch (err) {
+                console.debug('Event tracking setup error (safe to ignore):', err);
+            }
         });
     </script>
 </body>

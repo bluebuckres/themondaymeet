@@ -125,6 +125,29 @@ class PrivacyTracker {
   setupCustomEvents() {
     // Wait for DOM to be ready
     document.addEventListener('DOMContentLoaded', () => {
+      // Track chat-specific events
+      try {
+        let firstMessage = true;
+        if (typeof sendMessage === 'function') {
+          const originalSendMessage = sendMessage;
+          sendMessage = function() {
+            try {
+              if (firstMessage) {
+                this.track('first_message_sent');
+                firstMessage = false;
+              }
+              this.track('message_sent');
+              return originalSendMessage.apply(this, arguments);
+            } catch (err) {
+              console.debug('Tracking error (safe to ignore):', err);
+              return originalSendMessage.apply(this, arguments);
+            }
+          }.bind(this);
+        }
+      } catch (err) {
+        console.debug('Message tracking setup error (safe to ignore):', err);
+      }
+
       // Track "Test the Waters" button clicks
       const chatButton = document.querySelector('a[href="/chat.html"], a[href="chat.html"]');
       if (chatButton) {
