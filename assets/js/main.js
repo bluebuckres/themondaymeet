@@ -46,22 +46,36 @@ class DigitalBestiary {
         const scrollProgress = scrollTop / maxScroll;
         
         // Update progress bar
-        this.progressBar.style.width = `${scrollProgress * 100}%`;
+        if (this.progressBar) {
+            this.progressBar.style.width = `${scrollProgress * 100}%`;
+        }
         
         // Hero section fade out
         if (scrollTop > 200) {
-            this.heroSection.style.opacity = Math.max(0, 1 - (scrollTop - 200) / 300);
-            this.scrollIndicator.style.opacity = Math.max(0, 1 - scrollTop / 200);
+            if (this.heroSection) {
+                this.heroSection.style.opacity = Math.max(0, 1 - (scrollTop - 200) / 300);
+            }
+            if (this.scrollIndicator) {
+                this.scrollIndicator.style.opacity = Math.max(0, 1 - scrollTop / 200);
+            }
         } else {
-            this.heroSection.style.opacity = 1;
-            this.scrollIndicator.style.opacity = 1;
+            if (this.heroSection) {
+                this.heroSection.style.opacity = 1;
+            }
+            if (this.scrollIndicator) {
+                this.scrollIndicator.style.opacity = 1;
+            }
         }
         
         // Show search after some scroll
         if (scrollTop > 100) {
-            this.floatingSearch.style.opacity = 1;
+            if (this.floatingSearch) {
+                this.floatingSearch.style.opacity = 1;
+            }
         } else {
-            this.floatingSearch.style.opacity = 0;
+            if (this.floatingSearch) {
+                this.floatingSearch.style.opacity = 0;
+            }
         }
         
         // Animate sections as they come into view
@@ -94,6 +108,11 @@ class DigitalBestiary {
     }
     
     setupParticleSystem() {
+        // Skip particle system if element doesn't exist
+        if (!this.particles) {
+            return;
+        }
+        
         // Reduce particles on mobile for better performance
         const isMobile = window.innerWidth <= 768;
         const particleCount = isMobile ? 8 : 15;
@@ -113,6 +132,11 @@ class DigitalBestiary {
     }
     
     createParticle() {
+        // Skip if particles container doesn't exist
+        if (!this.particles) {
+            return;
+        }
+        
         const particle = document.createElement('div');
         particle.className = 'particle';
         
@@ -139,9 +163,13 @@ class DigitalBestiary {
     setupHeroAnimations() {
         // Animate hero section on load
         setTimeout(() => {
-            this.heroSection.style.opacity = 1;
-            this.heroSection.style.transform = 'translateY(0px)';
-            this.scrollIndicator.style.opacity = 1;
+            if (this.heroSection) {
+                this.heroSection.style.opacity = 1;
+                this.heroSection.style.transform = 'translateY(0px)';
+            }
+            if (this.scrollIndicator) {
+                this.scrollIndicator.style.opacity = 1;
+            }
         }, 500);
         
         // Splitting.js for character animation
@@ -191,6 +219,10 @@ class DigitalBestiary {
         const closeButton = document.getElementById('closeButton');
         const creatureImages = document.querySelectorAll('.creature-image');
         
+        if (!modalOverlay || !closeButton) {
+            return;
+        }
+        
         creatureImages.forEach((image) => {
             image.addEventListener('click', (e) => {
                 const creatureId = e.target.dataset.creature;
@@ -232,6 +264,11 @@ class DigitalBestiary {
     }
     
     setupSearchFunctionality() {
+        // Skip if search input doesn't exist
+        if (!this.searchInput) {
+            return;
+        }
+        
         const creatures = document.querySelectorAll('.creature-section');
         
         this.searchInput.addEventListener('input', (e) => {

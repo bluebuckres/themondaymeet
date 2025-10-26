@@ -197,20 +197,25 @@ class PrivacyTracker {
     const pageKey = event.page.replace(/\//g, '_').replace(/[^a-zA-Z0-9_]/g, '') || 'home';
     const summaryRef = this.db.ref(`analytics/pages/${pageKey}`);
 
-    // Use transaction to safely update counters
-    if (event.event === 'page_view') {
-      summaryRef.child('views').transaction((current) => (current || 0) + 1);
-      summaryRef.child('lastView').set(Date.now());
-    }
-    
-    if (event.event === 'page_exit') {
-      summaryRef.child('totalTime').transaction((current) => (current || 0) + event.timeOnPage);
-      summaryRef.child('totalScroll').transaction((current) => (current || 0) + event.maxScrollDepth);
-      summaryRef.child('exits').transaction((current) => (current || 0) + 1);
-    }
+    // Use transaction to safely update counters with error handling
+    try {
+      if (event.event === 'page_view') {
+        summaryRef.child('views').transaction((current) => (current || 0) + 1).catch(() => {});
+        summaryRef.child('lastView').set(Date.now()).catch(() => {});
+      }
+      
+      if (event.event === 'page_exit') {
+        summaryRef.child('totalTime').transaction((current) => (current || 0) + event.timeOnPage).catch(() => {});
+        summaryRef.child('totalScroll').transaction((current) => (current || 0) + event.maxScrollDepth).catch(() => {});
+        summaryRef.child('exits').transaction((current) => (current || 0) + 1).catch(() => {});
+      }
 
-    if (event.event === 'button_click') {
-      summaryRef.child(`clicks_${event.button}`).transaction((current) => (current || 0) + 1);
+      if (event.event === 'button_click') {
+        summaryRef.child(`clicks_${event.button}`).transaction((current) => (current || 0) + 1).catch(() => {});
+      }
+    } catch (error) {
+      // Silently handle Firebase permission errors
+      console.debug('Analytics tracking permission issue - this is normal in development');
     }
   }
 

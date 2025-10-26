@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>The Monday Meet - A Love Story</title>
+    <!-- Tailwind CSS - Development CDN (Replace with build process for production) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Suppress Tailwind CDN warning for development
+        tailwind.config = {
+            corePlugins: {
+                preflight: false,
+            }
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.js"></script>
@@ -98,6 +107,203 @@
             75% { transform: translateX(-1px) translateY(-2px) rotate(0.05deg); }
         }
         
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            html {
+                font-size: 16px; /* Prevent iOS zoom on input focus */
+                -webkit-text-size-adjust: 100%;
+                overflow: hidden;
+                height: 100%;
+            }
+            
+            body {
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior: none;
+                touch-action: pan-y;
+                height: 100%;
+                position: relative;
+            }
+            
+            /* Fix mobile scrolling issues */
+            .mobile-scroll-fix {
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior: contain;
+                scroll-behavior: smooth;
+                transform: translateZ(0); /* Force hardware acceleration */
+                will-change: scroll-position;
+            }
+            
+            /* Prevent tilt/transform issues on scroll */
+            .no-transform-on-scroll {
+                transform: none !important;
+                transition: none !important;
+            }
+            
+            /* Remove problematic hover effects on touch devices */
+            .mobile-no-hover:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+            
+            /* Prevent horizontal overflow */
+            * {
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+            
+            /* Reduce animations on mobile for better performance */
+            .paper-grain {
+                animation: none;
+            }
+            
+            body::before {
+                animation: none;
+            }
+            
+            /* Fix viewport height on mobile */
+            .mobile-vh {
+                height: 100vh;
+                height: -webkit-fill-available;
+            }
+            
+            /* Optimize background attachments for mobile */
+            body {
+                background-attachment: scroll;
+            }
+            
+            /* Fix contact button hover effects on mobile */
+            .contact-link:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+            
+            .contact-link:active {
+                transform: scale(0.98);
+                transition: transform 0.1s ease;
+            }
+            
+            /* Ensure buttons don't cause layout shifts */
+            .contact-links {
+                position: relative;
+                z-index: 5;
+            }
+            
+            .contact-link {
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+                transition: background-color 0.2s ease;
+            }
+            
+            /* Fix letter card hover effects on mobile */
+            .letter-card:hover {
+                transform: none !important;
+                box-shadow: 
+                    0 30px 60px rgba(0,0,0,0.15),
+                    inset 0 1px 0 rgba(255,255,255,0.4),
+                    inset 0 -1px 0 rgba(0,0,0,0.1) !important;
+            }
+            
+            /* Remove any other hover transforms on mobile */
+            *:hover {
+                transform: none !important;
+            }
+            
+            /* Fix background attachment for better mobile performance */
+            body::before,
+            .paper-grain {
+                background-attachment: scroll;
+                will-change: auto;
+            }
+            
+            /* Ensure fixed elements don't interfere with scrolling */
+            .progress-bar,
+            .floating-search,
+            .floating-particles {
+                pointer-events: none;
+            }
+            
+            /* Fix hero section for mobile */
+            .hero-section {
+                height: 100vh;
+                height: -webkit-fill-available;
+                padding: 2rem 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem !important; /* 40px - reduced from 48px */
+                line-height: 1.2;
+                margin-bottom: 1rem;
+                letter-spacing: -1px;
+                animation: none; /* Disable animation on mobile for better performance */
+                text-shadow: 0 0 15px rgba(139, 38, 53, 0.3);
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                max-width: 100%;
+                padding: 0 1rem;
+            }
+            
+            /* Extra small screens (iPhone SE, etc.) */
+            @media (max-width: 375px) {
+                .hero-title {
+                    font-size: 2rem !important; /* 32px for very small screens */
+                }
+            }
+            
+            /* Tiny screens (very old phones) */
+            @media (max-width: 320px) {
+                .hero-title {
+                    font-size: 1.75rem !important; /* 28px for tiny screens */
+                }
+            }
+            
+            .hero-subtitle {
+                font-size: 1.125rem !important; /* 18px */
+                line-height: 1.6;
+                margin-bottom: 2rem;
+                padding: 0 1rem;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                max-width: 100%;
+            }
+            
+            /* Smaller subtitle for tiny screens */
+            @media (max-width: 375px) {
+                .hero-subtitle {
+                    font-size: 1rem !important; /* 16px for smaller screens */
+                }
+            }
+            
+            .scroll-content {
+                padding: 0 1rem !important;
+            }
+            
+            /* Disable splitting.js animations on mobile for better performance */
+            .hero-title .char {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            
+            /* Ensure title is always visible on mobile */
+            .hero-title {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            
+            /* Fix typed text on mobile */
+            .typed-text {
+                font-size: 1rem;
+                min-height: 2rem;
+                display: none; /* Hide typed text on mobile for better performance */
+            }
+            
+            /* Improve hero section centering on mobile */
+            .hero-section {
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        
         .scroll-container {
             width: 100vw;
             min-height: 100vh;
@@ -107,17 +313,28 @@
             position: relative;
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: y proximity;
+            overscroll-behavior: contain;
         }
         
         .scroll-content {
             width: 100%;
             position: relative;
             padding: 0 50px;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        
+        /* Adjust padding for tablets */
+        @media (max-width: 1024px) {
+            .scroll-content {
+                padding: 0 30px;
+            }
         }
         
         .hero-section {
             position: relative;
             width: 100%;
+            max-width: 100vw;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -127,6 +344,8 @@
             opacity: 1;
             margin-bottom: 100px;
             z-index: 10;
+            overflow-x: hidden;
+            overflow-y: visible;
         }
         
         .hero-title {
@@ -137,6 +356,23 @@
             letter-spacing: -2px;
             line-height: 1.1;
             animation: titleGlow 3s ease-in-out infinite alternate;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            padding: 0 20px;
+        }
+        
+        /* Responsive title for tablets and small desktops */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 80px;
+            }
+        }
+        
+        @media (max-width: 768px) and (min-width: 769px) {
+            .hero-title {
+                font-size: 60px;
+            }
         }
         
         @keyframes titleGlow {
@@ -653,8 +889,8 @@
         <input type="text" class="search-input" placeholder="Search story..." id="searchInput">
     </div>
     
-    <div class="scroll-container" id="scrollContainer">
-        <div class="scroll-content" id="scrollContent">
+    <div class="scroll-container mobile-scroll-fix no-transform-on-scroll" id="scrollContainer">
+        <div class="scroll-content no-transform-on-scroll" id="scrollContent">
             <!-- Hero Section -->
             <div class="hero-section" id="heroSection">
                 <h1 class="hero-title" data-splitting>The Monday Meet</h1>
@@ -663,7 +899,7 @@
             </div>
             
             <!-- Single Love Letter Card -->
-            <div class="letter-card" id="letterCard">
+            <div class="letter-card mobile-no-hover no-transform-on-scroll" id="letterCard">
                 <div class="letter-header">
                     <div class="letter-date">October 2025</div>
                 </div>
@@ -743,10 +979,10 @@
                     <div class="letter-section">
                         <h3 class="contact-question">What should I call you?</h3>
                         <div class="contact-links">
-                            <a href="/chat.html" class="contact-link chat-link">
+                            <a href="/chat.html" class="contact-link chat-link mobile-no-hover">
                                 Test the Waters
                             </a>
-                            <a href="https://wa.me/917797252694" class="contact-link whatsapp-link" target="_blank">
+                            <a href="https://wa.me/917797252694" class="contact-link whatsapp-link mobile-no-hover" target="_blank">
                                 Dive In
                             </a>
                         </div>
@@ -775,31 +1011,41 @@
     <script src="assets/js/tracker.js"></script>
     <script>
         // Initialize Privacy Tracker - Using existing Firebase project
-        const tracker = new PrivacyTracker({
-            apiKey: "AIzaSyAxL7T8IAR3WFjsmoCyn_lOVfjkxJX2Yto",
-            authDomain: "lovelatter-chat.firebaseapp.com",
-            databaseURL: "https://lovelatter-chat-default-rtdb.asia-southeast1.firebasedatabase.app/",
-            projectId: "lovelatter-chat",
-            storageBucket: "lovelatter-chat.firebasestorage.app",
-            messagingSenderId: "633229169343",
-            appId: "1:633229169343:web:4a8daec614adbaba0cac0a"
-        });
+        try {
+            const tracker = new PrivacyTracker({
+                apiKey: "AIzaSyAxL7T8IAR3WFjsmoCyn_lOVfjkxJX2Yto",
+                authDomain: "lovelatter-chat.firebaseapp.com",
+                databaseURL: "https://lovelatter-chat-default-rtdb.asia-southeast1.firebasedatabase.app/",
+                projectId: "lovelatter-chat",
+                storageBucket: "lovelatter-chat.firebasestorage.app",
+                messagingSenderId: "633229169343",
+                appId: "1:633229169343:web:4a8daec614adbaba0cac0a"
+            });
 
-        // Track page-specific events
-        document.addEventListener('DOMContentLoaded', () => {
-            // Track when user reaches contact section
-            const contactSection = document.querySelector('.contact-question');
-            if (contactSection) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            tracker.track('reached_contact_cta');
-                        }
-                    });
-                }, { threshold: 0.5 });
-                observer.observe(contactSection);
-            }
-        });
+            // Track page-specific events
+            document.addEventListener('DOMContentLoaded', () => {
+                // Track when user reaches contact section
+                const contactSection = document.querySelector('.contact-question');
+                if (contactSection) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                try {
+                                    tracker.track('reached_contact_cta');
+                                } catch (error) {
+                                    // Silently fail if tracking fails
+                                    console.log('Analytics tracking failed (this is fine)');
+                                }
+                            }
+                        });
+                    }, { threshold: 0.5 });
+                    observer.observe(contactSection);
+                }
+            });
+        } catch (error) {
+            // Analytics initialization failed - page will continue to work
+            console.log('Analytics initialization failed (this is fine)');
+        }
     </script>
 </body>
 </html>
