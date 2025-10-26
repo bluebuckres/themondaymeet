@@ -289,49 +289,81 @@
                 color: #1a1a1a !important;
             }
 
-            /* Make input bar highly visible on mobile */
+            /* Make input bar highly visible on mobile - PRO LEVEL */
             input[type="text"] {
                 background-color: #ffffff !important;
-                border: 2px solid #a855f7 !important;
-                color: #1a1a1a !important;
+                border: 3px solid #8b5cf6 !important;
+                color: #000000 !important;
                 font-size: 16px !important;
-                font-weight: 500 !important;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+                font-weight: 600 !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+                -webkit-appearance: none !important;
+                appearance: none !important;
             }
 
             input[type="text"]:focus {
                 background-color: #ffffff !important;
-                border-color: #9333ea !important;
-                box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2) !important;
+                border-color: #7c3aed !important;
+                box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+                outline: none !important;
             }
 
-            /* Make input container more visible */
+            /* Make input container more visible - SOLID BACKGROUND */
             .bg-white\/80.backdrop-blur-lg.border-t {
-                background-color: rgba(255, 255, 255, 0.98) !important;
-                border-top: 2px solid rgba(168, 85, 247, 0.2) !important;
-                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05) !important;
+                background-color: #ffffff !important;
+                background: #ffffff !important;
+                border-top: 3px solid rgba(139, 92, 246, 0.3) !important;
+                box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1) !important;
+                backdrop-filter: none !important;
             }
 
-            /* Ensure emoji and send buttons are visible */
+            /* Force solid background on input area wrapper */
+            .safe-area-bottom {
+                background-color: #ffffff !important;
+                background: #ffffff !important;
+            }
+
+            /* Ensure emoji and send buttons are SUPER visible */
             .bg-yellow-100 {
-                background-color: #fef3c7 !important;
-                border: 2px solid #fbbf24 !important;
+                background-color: #fde047 !important;
+                border: 3px solid #eab308 !important;
+                box-shadow: 0 2px 8px rgba(234, 179, 8, 0.3) !important;
             }
 
             .bg-gradient-to-r {
-                box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3) !important;
+                background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%) !important;
+                box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+                border: none !important;
+            }
+
+            .bg-gradient-to-r:disabled {
+                opacity: 0.5 !important;
+                box-shadow: none !important;
             }
 
             /* Add padding to input area for better visibility */
             .safe-area-bottom {
                 padding: 1rem !important;
-                background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.98)) !important;
             }
 
             /* Make sure input is always visible */
             input[type="text"]::placeholder {
-                color: #9ca3af !important;
-                font-weight: 400 !important;
+                color: #6b7280 !important;
+                font-weight: 500 !important;
+                opacity: 1 !important;
+                -webkit-text-fill-color: #6b7280 !important;
+            }
+
+            input[type="text"]::-webkit-input-placeholder {
+                color: #6b7280 !important;
+                font-weight: 500 !important;
+                opacity: 1 !important;
+            }
+
+            input[type="text"]::-moz-placeholder {
+                color: #6b7280 !important;
+                font-weight: 500 !important;
+                opacity: 1 !important;
             }
 
             /* Increase input height for better touch targets */
