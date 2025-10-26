@@ -289,29 +289,32 @@
                 color: #1a1a1a !important;
             }
 
-            /* EXTREME VISIBILITY - Input bar stands out like crazy */
+            /* SLEEK & AESTHETIC - Modern input design */
             input[type="text"] {
-                background-color: #ffffff !important;
-                border: 4px solid #7c3aed !important;
-                color: #000000 !important;
-                font-size: 17px !important;
-                font-weight: 700 !important;
-                box-shadow: 0 6px 16px rgba(124, 58, 237, 0.25), 
-                            inset 0 2px 4px rgba(0, 0, 0, 0.06),
-                            0 0 0 1px rgba(124, 58, 237, 0.1) !important;
+                background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%) !important;
+                border: 2px solid transparent !important;
+                background-clip: padding-box !important;
+                position: relative !important;
+                color: #1a1a1a !important;
+                font-size: 16px !important;
+                font-weight: 500 !important;
+                box-shadow: 0 2px 8px rgba(139, 92, 246, 0.12),
+                            inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
                 -webkit-appearance: none !important;
                 appearance: none !important;
-                border-radius: 16px !important;
-                line-height: 1.5 !important;
+                border-radius: 20px !important;
+                line-height: 1.6 !important;
+                transition: all 0.3s ease !important;
             }
 
             input[type="text"]:focus {
-                background-color: #ffffff !important;
-                border-color: #6d28d9 !important;
-                box-shadow: 0 0 0 5px rgba(109, 40, 217, 0.4), 
-                            0 8px 20px rgba(124, 58, 237, 0.3) !important;
+                background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%) !important;
+                border: 2px solid transparent !important;
+                box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15),
+                            0 4px 16px rgba(139, 92, 246, 0.2),
+                            inset 0 1px 3px rgba(255, 255, 255, 0.9) !important;
                 outline: none !important;
-                transform: translateY(-1px) !important;
+                transform: translateY(-1px) scale(1.005) !important;
             }
 
             /* Make input container more visible - SOLID BACKGROUND */
@@ -344,60 +347,132 @@
                 margin-top: 8px !important;
             }
 
-            /* Ensure emoji and send buttons are SUPER visible */
+            /* Sleek emoji button with modern design */
             .bg-yellow-100 {
-                background-color: #fde047 !important;
-                border: 3px solid #eab308 !important;
-                box-shadow: 0 2px 8px rgba(234, 179, 8, 0.3) !important;
+                background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
+                border: none !important;
+                box-shadow: 0 4px 12px rgba(251, 191, 36, 0.25),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+                transition: all 0.3s ease !important;
             }
 
+            .bg-yellow-100:hover,
+            .bg-yellow-100:active {
+                background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%) !important;
+                box-shadow: 0 6px 16px rgba(251, 191, 36, 0.35),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+                transform: translateY(-1px) scale(1.05) !important;
+            }
+
+            /* Premium send button with sleek gradient */
             .bg-gradient-to-r {
                 background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%) !important;
-                box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+                box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
                 border: none !important;
+                transition: all 0.3s ease !important;
+            }
+
+            .bg-gradient-to-r:not(:disabled):hover,
+            .bg-gradient-to-r:not(:disabled):active {
+                background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%) !important;
+                box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+                transform: translateY(-2px) scale(1.05) !important;
             }
 
             .bg-gradient-to-r:disabled {
-                opacity: 0.5 !important;
-                box-shadow: none !important;
+                opacity: 0.4 !important;
+                box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2) !important;
+                background: linear-gradient(135deg, #a78bfa 0%, #f9a8d4 100%) !important;
             }
 
-            /* UPLIFT THE BAR - Move it away from bottom edge */
+            /* MOBILE-FRIENDLY BAR - Fixed for Chrome/Google */
             .safe-area-bottom {
-                padding: 1.5rem !important;
-                padding-bottom: 2rem !important;
-                margin-bottom: 1rem !important;
+                padding: 1rem !important;
+                padding-bottom: 1.5rem !important;
+                margin-bottom: 0 !important;
+                position: sticky !important;
+                bottom: 0 !important;
+                z-index: 50 !important;
             }
 
-            /* Add strong visual separation */
+            /* Sleek floating card with glassmorphism */
             .bg-white\/80.backdrop-blur-lg.border-t.safe-area-bottom,
             div.bg-white\/80.backdrop-blur-lg.border-t.border-white\/20 {
-                margin: 0 0.75rem 1rem 0.75rem !important;
-                border-radius: 24px !important;
-                padding: 1.25rem !important;
-                border: 3px solid #8b5cf6 !important;
-                box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3), 
-                            0 0 0 1px rgba(139, 92, 246, 0.1) !important;
+                margin: 0 0.75rem 0.75rem 0.75rem !important;
+                border-radius: 28px !important;
+                padding: 1rem !important;
+                background: linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.95) 0%, 
+                    rgba(250, 250, 252, 0.95) 100%) !important;
+                border: 1.5px solid rgba(139, 92, 246, 0.2) !important;
+                box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15),
+                            0 2px 8px rgba(0, 0, 0, 0.05),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+                backdrop-filter: blur(20px) !important;
             }
 
-            /* Make sure input is always visible */
+            /* Ensure proper scrolling on mobile */
+            body, html {
+                overflow-x: hidden !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+
+            /* Fix message area height to allow scrolling */
+            .flex-1.overflow-y-auto {
+                height: auto !important;
+                max-height: calc(100vh - 180px) !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                overscroll-behavior: contain !important;
+            }
+
+            /* Fix chat container height */
+            .chat-container {
+                height: 100vh !important;
+                height: 100dvh !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            /* Make header sticky and always visible */
+            .bg-white\/80.backdrop-blur-lg.shadow-lg.border-b {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 100 !important;
+                background-color: rgba(255, 255, 255, 0.95) !important;
+            }
+
+            /* Adjust message area to account for sticky header */
+            .flex-1.overflow-y-auto.overflow-x-hidden {
+                flex: 1 !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+
+            /* Elegant placeholder styling */
             input[type="text"]::placeholder {
-                color: #6b7280 !important;
-                font-weight: 500 !important;
-                opacity: 1 !important;
-                -webkit-text-fill-color: #6b7280 !important;
+                color: #9ca3af !important;
+                font-weight: 400 !important;
+                opacity: 0.7 !important;
+                -webkit-text-fill-color: #9ca3af !important;
+                font-style: italic !important;
+                letter-spacing: 0.3px !important;
             }
 
             input[type="text"]::-webkit-input-placeholder {
-                color: #6b7280 !important;
-                font-weight: 500 !important;
-                opacity: 1 !important;
+                color: #9ca3af !important;
+                font-weight: 400 !important;
+                opacity: 0.7 !important;
+                font-style: italic !important;
             }
 
             input[type="text"]::-moz-placeholder {
-                color: #6b7280 !important;
-                font-weight: 500 !important;
-                opacity: 1 !important;
+                color: #9ca3af !important;
+                font-weight: 400 !important;
+                opacity: 0.7 !important;
+                font-style: italic !important;
             }
 
             /* MASSIVE input height for maximum visibility */
@@ -408,19 +483,45 @@
                 margin: 0 !important;
             }
 
-            /* BIGGER buttons for better visibility */
+            /* Perfectly sized aesthetic buttons */
             button.flex-shrink-0 {
-                min-width: 56px !important;
-                min-height: 56px !important;
-                width: 56px !important;
-                height: 56px !important;
+                min-width: 52px !important;
+                min-height: 52px !important;
+                width: 52px !important;
+                height: 52px !important;
+                border-radius: 18px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
             }
 
-            /* Force visibility on input wrapper */
+            /* Smooth input wrapper layout */
             .flex.gap-2.w-full {
                 padding: 0 !important;
                 margin: 0 !important;
                 align-items: center !important;
+                gap: 0.75rem !important;
+            }
+
+            /* Add subtle animation to everything */
+            * {
+                transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+            }
+
+            /* Remove animation from text to prevent blur */
+            input[type="text"],
+            input[type="text"]::placeholder {
+                transition: all 0.3s ease !important;
+            }
+
+            /* Hide typing indicator (three dots) on mobile - target gray dots specifically */
+            .bg-gray-400.rounded-full.animate-bounce {
+                display: none !important;
+            }
+
+            /* Hide the typing indicator message bubble */
+            .bg-white\/80.backdrop-blur-lg.rounded-2xl.rounded-bl-md {
+                display: none !important;
             }
         }
         
@@ -812,17 +913,7 @@
                 }
             };
 
-            // Clear all messages function
-            const clearAllMessages = async () => {
-                if (!database) return;
-                try {
-                    await database.ref(`chats/${chatId}/messages`).remove();
-                    addNotification('All messages cleared', 'success');
-                } catch (err) {
-                    console.error("Error clearing messages:", err);
-                    addNotification('Failed to clear messages', 'error');
-                }
-            };
+            // Clear all messages function removed - no longer needed
 
             // Switch user identity (for testing)
             const switchUser = () => {
@@ -990,15 +1081,6 @@
                                             <Users size={14} className="sm:hidden" />
                                             <Users size={16} className="hidden sm:block" />
                                             <span className="hidden sm:inline">Switch</span>
-                                        </button>
-                                        <button
-                                            onClick={clearAllMessages}
-                                            className="px-2 py-1.5 sm:px-3 sm:py-2 text-red-500 hover:bg-red-50 rounded-lg transition flex items-center gap-1 sm:gap-2 mobile-no-hover active:bg-red-100 text-xs sm:text-sm"
-                                            title="Clear all messages (Testing)"
-                                        >
-                                            <Trash size={14} className="sm:hidden" />
-                                            <Trash size={16} className="hidden sm:block" />
-                                            <span className="hidden sm:inline">Clear</span>
                                         </button>
                                         <button
                                             onClick={goHome}
