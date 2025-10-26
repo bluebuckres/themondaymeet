@@ -48,6 +48,8 @@
             background-size: cover, 100% 100%, 100% 100%, 100% 100%;
             background-attachment: fixed;
             position: relative;
+            touch-action: pan-y;
+            -webkit-text-size-adjust: 100%;
         }
         
         body::before {
@@ -103,6 +105,8 @@
             overflow-y: auto;
             scroll-behavior: smooth;
             position: relative;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: y proximity;
         }
         
         .scroll-content {
@@ -442,6 +446,24 @@
         @media (max-width: 768px) {
             body {
                 overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior: contain;
+                background-attachment: scroll;
+            }
+            
+            .scroll-container {
+                transform: translateZ(0);
+                will-change: scroll-position;
+                backface-visibility: hidden;
+            }
+            
+            .floating-particles {
+                display: none;
+            }
+            
+            .paper-grain {
+                opacity: 0.2;
+                animation: none;
             }
             
             .scroll-content {
@@ -658,7 +680,7 @@
                         <p>The whole ride, I was trying to figure out a way to say hi without sounding like a total weirdo. But... 👉👈</p>
                         
                         <p>I don't know much about you — maybe you study BBA at JIS?<br>
-                        If Feluda saw my detective skills, he'd probably shake his head and say, "Topse, tor dara kichu hobe na."</p>
+                        (If Feluda saw my detective skills, he'd probably shake his head and say, "Topse, tor dara kichu hobe na.")</p>
                         
                         <p>Still, even without knowing the details, there was something about your presence — that calm, genuine, natural energy. It lingered with me for days. I don't even know why. For the first time in a long while, I thought, "Maybe she's someone I'd really like to know."</p>
                     </div>
@@ -680,7 +702,7 @@
                         <p>And what's the probability of getting a seat next to you?<br>
                         I actually did the math — it's somewhere around <span class="highlight">0.63%</span>. (Yes, I'm that dedicated. "Desperate" just sounds bad. 😅)</p>
                         
-                        <p>So this felt like the only respectful way — a quiet corner of the internet where I can finally say what I've been wanting to, and you can read it whenever you like. No pressure, no awkward glances — just a quiet page.</p>
+                        <p>So this felt like the only respectful way — a quiet corner of the internet where I can finally say what I've been wanting to, and you can read it whenever you like. No rush, no awkward glances — just a quiet page.</p>
                     </div>
                     
                     <div class="letter-section">
@@ -691,7 +713,7 @@
                         
                         <p>You can tell me about your dreams, I'll bore you with stories from work, and we'll see where the talk takes us.</p>
                         
-                        <p>I just felt something genuine in those small moments, and I'd love to see if it's real. If it is — amazing. If not — at least we'll know we tried. No rush, no pressure.</p>
+                        <p>I just felt something genuine in those small moments, and I'd love to see if it's real. If it is — amazing. If not — at least we'll know we tried.</p>
                         
                         <p>I just wonder sometimes — could the person who accidentally made my Monday better end up meaning a little more?</p>
                     </div>
@@ -713,18 +735,19 @@
                         You can close this page, pretend it never happened, and we'll just go back to being fellow Monday travelers — same bus, same road, just from two quiet worlds.</p>
                         
                         <p>Thanks for making it this far — that already means more than you think.<br>
-                        I'll be here, hopeful, but with no pressure at all.</p>
+                        The decision is 100% yours. Until then, I have to keep faith on math.</p>
                         
                         <p style="text-align: right; margin-top: 30px; font-weight: 600; color: var(--cinnabar-red);">— Supriyo</p>
                     </div>
                     
                     <div class="letter-section">
+                        <h3 class="contact-question">What should I call you?</h3>
                         <div class="contact-links">
-                            <a href="https://wa.me/917908158639" class="contact-link whatsapp-link" target="_blank">
-                                💬 WhatsApp
+                            <a href="/chat.html" class="contact-link chat-link">
+                                Test the Waters
                             </a>
-                            <a href="mailto:supriyo.bbrs@gmail.com" class="contact-link email-link" target="_blank">
-                                ✉️ Email
+                            <a href="https://wa.me/917797252694" class="contact-link whatsapp-link" target="_blank">
+                                Dive In
                             </a>
                         </div>
                     </div>
@@ -747,5 +770,37 @@
     </div>
 
     <script src="assets/js/main.js"></script>
+    
+    <!-- Privacy Tracker - Analytics -->
+    <script src="assets/js/tracker.js"></script>
+    <script>
+        // Initialize Privacy Tracker
+        // TODO: Replace with your Firebase config
+        const tracker = new PrivacyTracker({
+            apiKey: "your-api-key-here",
+            authDomain: "your-project.firebaseapp.com",
+            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef123456"
+        });
+
+        // Track page-specific events
+        document.addEventListener('DOMContentLoaded', () => {
+            // Track when user reaches contact section
+            const contactSection = document.querySelector('.contact-question');
+            if (contactSection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            tracker.track('reached_contact_cta');
+                        }
+                    });
+                }, { threshold: 0.5 });
+                observer.observe(contactSection);
+            }
+        });
+    </script>
 </body>
 </html>

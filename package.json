@@ -1,7 +1,7 @@
 {
-  "name": "supriyo-monday-meet-2024",
-  "version": "1.0.0",
-  "description": "A beautiful, responsive love letter website built with modern web technologies",
+  "name": "the-monday-meet-v2",
+  "version": "2.0.0",
+  "description": "A heartfelt love letter website with advanced real-time chat functionality - V2",
   "main": "index.html",
   "scripts": {
     "start": "python3 -m http.server 8000",
@@ -19,7 +19,11 @@
     "static-website",
     "handwritten-font",
     "responsive-design",
-    "vercel"
+    "vercel",
+    "real-time-chat",
+    "private-messaging",
+    "firebase",
+    "react"
   ],
   "author": "Supriyo Paul <supriyo.bbrs@gmail.com>",
   "license": "MIT",
