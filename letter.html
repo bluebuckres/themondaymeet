@@ -69,6 +69,7 @@
             background: var(--paper-white);
             color: var(--ink-black);
             overflow-x: hidden;
+            caret-color: transparent; /* Hide all text cursors */
             background-image: 
                 url('assets/images/rice_paper_texture.png'),
                 radial-gradient(circle at 20% 80%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
@@ -326,7 +327,7 @@
                 display: none !important; /* Hide typed text on mobile for better performance */
             }
 
-            /* Hide Typed.js cursor completely on mobile */
+            /* Hide Typed.js cursor completely on all devices */
             .typed-cursor,
             .typed-cursor-text,
             .typed-cursor::after,
@@ -334,6 +335,7 @@
                 display: none !important;
                 opacity: 0 !important;
                 visibility: hidden !important;
+                color: transparent !important;
             }
 
             /* Hide any blinking cursor elements */
@@ -352,6 +354,17 @@
 
             .typed-cursor {
                 animation: none !important;
+            }
+            
+            /* Global cursor hiding - hide ALL cursors everywhere */
+            * {
+                caret-color: transparent !important;
+            }
+            
+            /* Hide any element that looks like a cursor */
+            span:empty,
+            div:empty {
+                display: none !important;
             }
             
             /* Improve hero section centering on mobile */
