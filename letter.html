@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>The Monday Meet - A Love Story</title>
+    <title>The Monday Meet</title>
     <!-- Tailwind CSS - Development CDN (Replace with build process for production) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -115,17 +115,10 @@
             height: 100%;
             background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZmlsdGVyIGlkPSJub2lzZSI+CiAgICA8ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgc2VlZD0iMiIvPgogIDwvZmlsdGVyPgogIDxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMDMiLz4KICA8L3N2Zz4K');
             pointer-events: none;
-            opacity: 0.4;
+            opacity: 0.3;
             z-index: 2;
-            animation: paperFloat 20s ease-in-out infinite;
         }
         
-        @keyframes paperFloat {
-            0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
-            25% { transform: translateX(-2px) translateY(-1px) rotate(0.1deg); }
-            50% { transform: translateX(1px) translateY(2px) rotate(-0.1deg); }
-            75% { transform: translateX(-1px) translateY(-2px) rotate(0.05deg); }
-        }
         
         /* Mobile optimizations */
         @media (max-width: 768px) {
@@ -403,12 +396,7 @@
             margin-bottom: 30px;
             letter-spacing: -2px;
             line-height: 1.1;
-            animation: titleGlow 3s ease-in-out infinite alternate;
-        }
-        
-        @keyframes titleGlow {
-            from { text-shadow: 0 0 20px rgba(139, 38, 53, 0.3), 0 0 30px rgba(139, 38, 53, 0.2); }
-            to { text-shadow: 0 0 30px rgba(139, 38, 53, 0.5), 0 0 40px rgba(139, 38, 53, 0.3); }
+            text-shadow: 0 0 25px rgba(139, 38, 53, 0.3);
         }
         
         .floating-particles {
@@ -423,26 +411,27 @@
         
         .particle {
             position: absolute;
-            width: 3px;
-            height: 3px;
-            background: radial-gradient(circle, rgba(139, 38, 53, 0.6) 0%, transparent 70%);
+            width: 2px;
+            height: 2px;
+            background: radial-gradient(circle, rgba(139, 38, 53, 0.4) 0%, transparent 70%);
             border-radius: 50%;
             animation: floatParticle 15s linear infinite;
+            will-change: transform, opacity;
         }
         
         @keyframes floatParticle {
             0% {
-                transform: translateY(100vh) translateX(0px) rotate(0deg);
+                transform: translateY(100vh) translateX(0px);
                 opacity: 0;
             }
             10% {
-                opacity: 1;
+                opacity: 0.6;
             }
             90% {
-                opacity: 1;
+                opacity: 0.6;
             }
             100% {
-                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                transform: translateY(-100px) translateX(50px);
                 opacity: 0;
             }
         }
@@ -953,56 +942,46 @@
                     </div>
                     
                     <div class="letter-section">
-                        <h2>So, Who Am I?</h2>
-                        <p>Hey again — Supriyo here. From Bagnan too — guess that's something we already have in common.<br>
-                        I work in fintech now, but there's still a lot I'm figuring out.</p>
+                        <p>Anyway, a bit about myself — I'm Supriyo. From Bagnan too, actually.<br>
+                        Guess that's something we already have in common.<br>
+                        I'm working on fintech right now, but there's still a lot I'm figuring out.</p>
                         
                         <p>You'd think one social media profile could handle introductions, but I'm more of a "talk in person" kind of guy.<br>
                         No tea, no coffee — I know, I'm already breaking hearts. I just believe real connections don't need caffeine to spark.</p>
                     </div>
                     
                     <div class="letter-section">
-                        <h2>Why This Website?</h2>
-                        <p>Okay, why a whole website? I know — it's a bit… extra.<br>
-                        But honestly, I couldn't think of any other way. Imagine trying to talk to someone on a packed bus — every uncle and auntie's eyes would be on us before I even finished my first sentence. Not ideal, right?</p>
+                        <p>You're probably wondering, why a whole website? I know — it's a bit… extra. But honestly, I couldn't think of any other way. Imagine trying to talk to someone on a packed bus — every uncle and auntie's eyes would be on us before I even finished my first sentence. Not ideal, right?</p>
                         
                         <p>And what's the probability of getting a seat next to you?<br>
-                        I actually did the math — it's somewhere around <span class="highlight">0.63%</span>. (Yes, I'm that dedicated. "Desperate" just sounds bad. 😅)</p>
+                        I actually did the math — it's somewhere around 0.63%. (Yes, I'm that dedicated. "Desperate" just sounds bad. 😅)</p>
                         
-                        <p>So this felt like the only respectful way — a quiet corner of the internet where I can finally say what I've been wanting to, and you can read it whenever you like. No rush, no awkward glances — just a quiet page.</p>
+                        <p>So this felt like the only way — a quiet corner of the internet where I can finally say what I've been wanting to, and you can read it whenever you like. No rush, no awkward glances — just a quiet page.</p>
                     </div>
                     
                     <div class="letter-section">
-                        <h2>But What Am I Looking For?</h2>
-                        <p>Nothing much. I just want a chance for a real, simple conversation.<br>
+                        <p>I don't know where this will go. Maybe we could just start a simple conversation.<br>
                         Maybe a walk somewhere in Kolkata — somewhere with a bit of green around us.<br>
                         We could talk about serious world issues… like why Mondays exist, and how one person somehow made mine completely bearable.</p>
                         
                         <p>You can tell me about your dreams, I'll bore you with stories from work, and we'll see where the talk takes us.</p>
                         
-                        <p>I just felt something genuine in those small moments, and I'd love to see if it's real. If it is — amazing. If not — at least we'll know we tried.</p>
+                        <p>There was something real in those small moments, and I want to know if it truly is. If it is — that's wonderful. If not — at least we tried.</p>
                         
-                        <p>I just wonder sometimes — could the person who accidentally made my Monday better end up meaning a little more?</p>
+                        <p>And sometimes I wonder… could the person who quietly made my Monday better end up meaning something more to me?</p>
                     </div>
                     
                     <div class="letter-section">
-                        <h2>So... How Do We Beat the <span class="highlight">0.63%</span> Odds?</h2>
-                        <p>Easy — same bus, next Monday.<br>
+                        <p>So... how do we beat the 0.63% odds? Easy — same bus, next Monday.<br>
                         I'll be in my usual spot; you bring your lucky timing. Maybe we'll finally push those odds into triple digits.</p>
-                        
-                        <p>Wait — are you actually blushing? That's a win for me already.<br>
-                        (Though I might have to ask for that smile back in person.)</p>
                         
                         <p>Who knows — maybe one day I'll owe you that seat beside me… for a lifetime.</p>
                     </div>
                     
                     <div class="letter-section">
-                        <h2>What If You Have Any Doubts?</h2>
-                        <p>That's totally fine.<br>
-                        You can close this page, pretend it never happened, and we'll just go back to being fellow Monday travelers — same bus, same road, just from two quiet worlds.</p>
+                        <p>And if all of this feels unexpected or a bit strange, that's okay. We'll just go back to being fellow Monday travelers — same bus, same road, two quiet worlds. I just wanted to finally say what I've been holding onto, and now that I have, I'll let you choose where the story goes next.</p>
                         
-                        <p>Thanks for making it this far — that already means more than you think.<br>
-                        The decision is 100% yours. Until then, I have to keep faith on math.</p>
+                        <p>Thank you for reading this far — it means more than you know. Until then, I have to keep my faith in math.</p>
                         
                         <p style="text-align: right; margin-top: 30px; font-weight: 600; color: var(--cinnabar-red);">— Supriyo</p>
                     </div>
@@ -1011,10 +990,10 @@
                         <h3 class="contact-question">What should I call you?</h3>
                         <div class="contact-links">
                             <a href="/chat.html" class="contact-link chat-link mobile-no-hover">
-                                Test the Waters
+                                No need to say who you are — just say what's on your mind.
                             </a>
                             <a href="https://wa.me/917797252694" class="contact-link whatsapp-link mobile-no-hover" target="_blank">
-                                Dive In
+                                If you're ready to talk for real… I'm here to listen.
                             </a>
                         </div>
                     </div>

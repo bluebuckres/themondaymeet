@@ -113,27 +113,32 @@ class DigitalBestiary {
             return;
         }
         
-        // Reduce particles on mobile for better performance
+        // Significantly reduce particles for better performance
         const isMobile = window.innerWidth <= 768;
-        const particleCount = isMobile ? 8 : 15;
-        const particleInterval = isMobile ? 3000 : 2000;
+        const maxParticles = isMobile ? 3 : 6; // Reduced from 8/15
+        const particleInterval = isMobile ? 5000 : 4000; // Increased interval
         
-        // Create floating particles
-        for (let i = 0; i < particleCount; i++) {
+        this.activeParticles = 0;
+        this.maxParticles = maxParticles;
+        
+        // Create initial particles with staggered timing
+        for (let i = 0; i < maxParticles; i++) {
             setTimeout(() => {
                 this.createParticle();
-            }, i * 1000);
+            }, i * 2000); // Spread out initial creation
         }
         
-        // Continuously create new particles
+        // Only create new particles if below max count
         setInterval(() => {
-            this.createParticle();
+            if (this.activeParticles < this.maxParticles) {
+                this.createParticle();
+            }
         }, particleInterval);
     }
     
     createParticle() {
-        // Skip if particles container doesn't exist
-        if (!this.particles) {
+        // Skip if particles container doesn't exist or max reached
+        if (!this.particles || this.activeParticles >= this.maxParticles) {
             return;
         }
         
@@ -142,22 +147,25 @@ class DigitalBestiary {
         
         // Random starting position
         particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 5 + 's';
-        particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+        particle.style.animationDelay = Math.random() * 3 + 's';
+        particle.style.animationDuration = (12 + Math.random() * 8) + 's';
         
-        // Random size variation
-        const size = 2 + Math.random() * 3;
+        // Random size variation - smaller particles
+        const size = 1.5 + Math.random() * 2;
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
         
         this.particles.appendChild(particle);
+        this.activeParticles++;
         
-        // Remove particle after animation
+        // Remove particle after animation completes
+        const duration = 15000; // 15 seconds
         setTimeout(() => {
             if (particle.parentNode) {
                 particle.parentNode.removeChild(particle);
+                this.activeParticles--;
             }
-        }, 20000);
+        }, duration);
     }
     
     setupHeroAnimations() {
