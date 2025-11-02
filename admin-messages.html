@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+c<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -205,14 +205,18 @@
         };
 
         // Initialize Firebase
+        console.log('Initializing Firebase...');
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
+        console.log('Firebase initialized successfully');
 
         // Load all chats and messages
         function loadChats() {
+            console.log('Loading chats...');
             const chatsRef = ref(database, 'chats');
             
             onValue(chatsRef, (snapshot) => {
+                console.log('Received data from Firebase:', snapshot.val());
                 const loading = document.getElementById('loading');
                 const chatList = document.getElementById('chatList');
                 
@@ -332,8 +336,21 @@
             return div.innerHTML;
         }
 
-        // Load chats on page load
-        loadChats();
+        // Load chats on page load with error handling
+        try {
+            loadChats();
+        } catch (error) {
+            console.error('Error loading chats:', error);
+            document.getElementById('loading').innerHTML = `
+                <div style="color: red; text-align: center; padding: 40px;">
+                    <h3>Error Loading Messages</h3>
+                    <p>${error.message}</p>
+                    <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #8b2635; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                        Retry
+                    </button>
+                </div>
+            `;
+        }
     </script>
 </body>
 </html>

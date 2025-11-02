@@ -148,6 +148,22 @@
                 scroll-snap-type: none;
             }
             
+            /* Ensure message text is visible on mobile */
+            .message-bubble-text {
+                min-height: 1.5rem;
+                display: block;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                white-space: pre-wrap;
+            }
+            
+            /* Fix message bubble sizing on mobile */
+            @media (max-width: 640px) {
+                .max-w-\[280px\] {
+                    max-width: 75vw !important;
+                }
+            }
+            
             /* Prevent horizontal overflow */
             * {
                 box-sizing: border-box;
@@ -1156,7 +1172,7 @@
                                                             {msg.sender.split('_')[1].substring(0, 6)}
                                                         </p>
                                                     )}
-                                                    <p className="break-words">{msg.text}</p>
+                                                    <p className="break-words text-sm sm:text-base leading-relaxed">{msg.text}</p>
                                                     <div className="flex items-center justify-between gap-2 mt-1">
                                                         <div className="flex items-center gap-1">
                                                             <span className={`text-xs ${isMe ? 'text-purple-100' : 'text-gray-400'}`}>

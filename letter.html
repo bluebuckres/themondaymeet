@@ -249,6 +249,10 @@
                 letter-spacing: -1px;
                 animation: none; /* Disable animation on mobile for better performance */
                 text-shadow: 0 0 15px rgba(139, 38, 53, 0.3);
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                max-width: 100%;
+                padding: 0 1rem;
             }
             
             .hero-subtitle {
@@ -287,8 +291,8 @@
                 text-rendering: optimizeLegibility !important;
                 -webkit-font-smoothing: antialiased !important;
                 -moz-osx-font-smoothing: grayscale !important;
-                word-break: keep-all !important;
-                white-space: nowrap !important;
+                word-break: normal !important;
+                white-space: normal !important;
                 letter-spacing: -1px !important;
                 font-weight: 700 !important;
                 content: "The Monday Meet" !important;
