@@ -30,7 +30,7 @@ A romantic web project built with HTML, CSS, and JavaScript featuring a beautifu
 
 ## 📱 Pages
 
-1. **Main Love Letter** (`index.html` → `love.html`) - The romantic introduction
+1. **Main Love Letter** (`index.html` → `letter.html`) - The romantic introduction
 2. **Real-time Chat** (`chat.html`) - Advanced private messaging system
 
 ## 🎨 V2 Design Improvements
@@ -45,8 +45,8 @@ A romantic web project built with HTML, CSS, and JavaScript featuring a beautifu
 
 ```
 lovelatter/
-├── index.html          # Main entry (redirects to love.html)
-├── love.html           # Main love letter page
+├── index.html          # Main entry (redirects to letter.html)
+├── letter.html         # Main love letter page
 ├── chat.html           # Real-time chat application
 ├── style.css           # Additional styles
 ├── vercel.json         # Vercel V2 configuration

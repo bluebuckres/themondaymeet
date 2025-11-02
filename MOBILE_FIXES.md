@@ -77,7 +77,7 @@ setInterval(cleanupMobile, 500);
 ```
 
 ### Files Modified
-1. `/love.html` - Main landing page
+1. `/letter.html` - Main landing page
    - Conditional script loading
    - Mobile cleanup script
    - Enhanced CSS for mobile

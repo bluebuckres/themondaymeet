@@ -19,7 +19,7 @@
 - **Reduced particle lifetime**: 20s → 15s
 - **Staggered initial creation**: Spread out over time instead of all at once
 
-### 2. Particle Animation Optimization (`love.html`)
+### 2. Particle Animation Optimization (`letter.html`)
 - **Simplified animation**: Removed rotation transform (360deg rotation removed)
 - **Reduced movement distance**: 100px → 50px horizontal movement
 - **Reduced opacity**: 1.0 → 0.6 max opacity

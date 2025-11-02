@@ -4,8 +4,8 @@
 Your project now has the correct structure:
 ```
 lovelatter/
-├── index.html          # Entry point (redirects to love.html)
-├── love.html           # Main website
+├── index.html          # Entry point (redirects to letter.html)
+├── letter.html         # Main website
 ├── main.js            # JavaScript functionality
 ├── style.css          # Additional styles
 ├── rice_paper_texture.png  # Background image
