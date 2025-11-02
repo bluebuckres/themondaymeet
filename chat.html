@@ -159,8 +159,46 @@
             
             /* Fix message bubble sizing on mobile */
             @media (max-width: 640px) {
-                .max-w-\[280px\] {
-                    max-width: 75vw !important;
+                .max-w-\[280px\],
+                .max-w-\[85\%\] {
+                    max-width: 85vw !important;
+                    min-width: 100px !important;
+                }
+                
+                /* Ensure message text is always visible */
+                .message-scroll p {
+                    font-size: 16px !important;
+                    line-height: 1.5 !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    display: block !important;
+                    min-height: 20px !important;
+                }
+                
+                /* Force message bubbles to be visible with proper sizing */
+                .message-scroll > div > div {
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    display: flex !important;
+                    min-height: 40px !important;
+                }
+                
+                /* Ensure white text on purple bubbles is visible */
+                .bg-gradient-to-br.from-purple-500 p,
+                .text-white p {
+                    color: white !important;
+                }
+                
+                /* Ensure dark text on white bubbles is visible */
+                .bg-white\/80 p,
+                .text-gray-800 p {
+                    color: #1f2937 !important;
+                }
+                
+                /* Force all message bubble containers to have proper dimensions */
+                .rounded-2xl {
+                    min-height: 40px !important;
+                    padding: 12px 16px !important;
                 }
             }
             
@@ -1160,7 +1198,7 @@
 
                                     return (
                                         <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'} animate-fade-in`}>
-                                            <div className={`max-w-[280px] sm:max-w-xs lg:max-w-md ${isMe ? 'items-end' : 'items-start'} flex flex-col gap-1 group`}>
+                                            <div className={`w-auto max-w-[85%] sm:max-w-xs lg:max-w-md ${isMe ? 'items-end' : 'items-start'} flex flex-col gap-1 group`}>
                                                 <div className={`px-4 py-3 rounded-2xl relative ${
                                                     isMe 
                                                         ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-br-md' 
@@ -1172,7 +1210,7 @@
                                                             {msg.sender.split('_')[1].substring(0, 6)}
                                                         </p>
                                                     )}
-                                                    <p className="break-words text-sm sm:text-base leading-relaxed">{msg.text}</p>
+                                                    <p className="break-words text-base leading-relaxed min-h-[1.5rem]" style={{wordWrap: 'break-word', overflowWrap: 'break-word', whiteSpace: 'pre-wrap'}}>{msg.text}</p>
                                                     <div className="flex items-center justify-between gap-2 mt-1">
                                                         <div className="flex items-center gap-1">
                                                             <span className={`text-xs ${isMe ? 'text-purple-100' : 'text-gray-400'}`}>
