@@ -2,7 +2,7 @@
   "rules": {
     "analytics": {
       "events": {
-        ".read": "auth != null",
+        ".read": true,
         ".write": true,
         ".indexOn": ["timestamp", "page", "event"],
         "$eventId": {
@@ -10,7 +10,7 @@
         }
       },
       "pages": {
-        ".read": "auth != null", 
+        ".read": true, 
         ".write": true,
         "$pageId": {
           ".validate": true
